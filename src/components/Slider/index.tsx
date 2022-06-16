@@ -1,19 +1,16 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { Slider, Typography } from "@mui/material";
-import { useState } from "react";
 
 export default function Sliders({
   slidersProps,
+  handleChange,
+  slidersState,
 }: {
   slidersProps: Array<Record<string, any>>;
+  handleChange: (event: any, id: any) => void;
+  slidersState: Record<string, any>;
 }) {
-  const [slidersState, setSliderState] = useState<Record<string, any>>({});
-
-  const handleChange = (event: any, id: any) => {
-    setSliderState({ ...slidersState, [id]: event.target.value });
-  };
-
   return (
     <Box sx={{ width: 200 }}>
       <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
@@ -21,7 +18,7 @@ export default function Sliders({
           return (
             <>
               <Typography id="non-linear-slider" gutterBottom>
-                Storage: {valueLabelFormat(calculateValue(value))}
+                {sliderProp.name}: {sliderProp.value}
               </Typography>
               <Slider
                 aria-label="Volume"
@@ -30,6 +27,8 @@ export default function Sliders({
                 max={sliderProp.max}
                 step={sliderProp.step}
                 onChange={(e) => handleChange(e, sliderProp.id)}
+                valueLabelDisplay="auto"
+                aria-labelledby="non-linear-slider"
               />
             </>
           );

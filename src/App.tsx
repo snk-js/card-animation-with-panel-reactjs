@@ -1,7 +1,7 @@
-import Cards from "./components/Cards/cards";
+import CardsSimulated from "./page/main";
 
 function App() {
-  return <Cards />;
+  return <CardsSimulated />;
 }
 
 export default App;

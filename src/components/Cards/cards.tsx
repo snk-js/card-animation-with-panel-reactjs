@@ -5,25 +5,11 @@ import { useDrag } from "react-use-gesture";
 import ChessCard from "./chessCard.png";
 //@ts-ignore
 import styles from "./styles.module.css";
-import Sliders from "../Slider";
 
 const len = 50;
-// These two are just helpers, they curate spring data, values that are later being interpolated into css
-const to = (i: number) => ({
-  x: Math.random() * 12 * i,
-  y: Math.random() * 50 * i,
-  scale: 2,
-  rot: -10 + Math.random() * 200,
-  delay: i * 100,
-});
-const from = (_i: number) => ({ x: -500, rot: 0, scale: 2, y: -10000 });
-// This is being used down there in the view, it interpolates rotation and scale into a css transform
-const trans = (r: number, s: number) =>
-  `perspective(1500px) rotateX(30deg) rotateY(${
-    r / 10
-  }deg) rotateZ(${r}deg) scale(${s})`;
 
-function Deck() {
+export default function Deck({ to, from, trans }: any) {
+  console.log(to);
   const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
   const [props, api] = useSprings(len, (i) => ({
     ...to(i),
@@ -32,6 +18,8 @@ function Deck() {
   // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
   const bind = useDrag(
     ({ args: [index], down, movement: [mx], direction: [xDir], velocity }) => {
+      console.log(index, down, mx, xDir, velocity);
+
       const trigger = velocity > 0.2; // If you flick hard enough it should trigger the card to fly out
       const dir = xDir < 0 ? -1 : 1; // Direction should either point left or right
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
@@ -71,19 +59,6 @@ function Deck() {
           />
         </animated.div>
       ))}
-    </>
-  );
-}
-
-export default function App() {
-  return (
-    <>
-      <div className={styles.panel}>
-        <Sliders />
-      </div>
-      <div className={styles.container}>
-        <Deck />
-      </div>
     </>
   );
 }
