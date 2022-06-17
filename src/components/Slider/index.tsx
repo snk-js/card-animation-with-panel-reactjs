@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { Slider, Typography } from "@mui/material";
+import { useEffect } from "react";
 
 export default function Sliders({
   slidersProps,
@@ -13,7 +14,12 @@ export default function Sliders({
 }) {
   return (
     <Box sx={{ width: 200 }}>
-      <Stack spacing={2} direction="column" sx={{ mb: 1 }} alignItems="center">
+      <Stack
+        spacing={2}
+        direction="column"
+        sx={{ mb: 1, height: "100%" }}
+        alignItems="center"
+      >
         {slidersProps.map((sliderProp) => {
           return (
             <>
@@ -33,7 +39,6 @@ export default function Sliders({
             </>
           );
         })}
-        <Slider disabled defaultValue={30} aria-label="Disabled slider" />
       </Stack>
     </Box>
   );

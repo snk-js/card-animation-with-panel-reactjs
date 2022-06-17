@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSprings, animated, to as interpolate } from "@react-spring/web";
 import { useDrag } from "react-use-gesture";
 //@ts-ignore
@@ -8,14 +8,14 @@ import styles from "./styles.module.css";
 
 const len = 50;
 
-export default function Deck({ to, from, trans }: any) {
-  console.log(to);
+export default function Deck({ to, from, trans, endingState }: any) {
   const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
   const [props, api] = useSprings(len, (i) => ({
     ...to(i),
     from: from(i),
   })); // Create a bunch of springs using the helpers above
   // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
+
   const bind = useDrag(
     ({ args: [index], down, movement: [mx], direction: [xDir], velocity }) => {
       console.log(index, down, mx, xDir, velocity);
