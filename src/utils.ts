@@ -1,3 +1,5 @@
+import { match } from "assert";
+
 function getRandomArbitrary(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
@@ -18,8 +20,8 @@ export const to = ({
   rot: number;
   delay: number;
 }) => ({
-  x: xV * i,
-  y: yV * i,
+  x: (Math.random() - 0.5) * xV,
+  y: (Math.random() - 0.5) * yV,
   scale: sC,
   rot: -10 + Math.random() * rot,
   delay: i * delay,

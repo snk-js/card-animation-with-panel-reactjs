@@ -10,11 +10,17 @@ const len = 50;
 
 export default function Deck({ to, from, trans, endingState }: any) {
   const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
-  const [props, api] = useSprings(len, (i) => ({
-    ...to(i),
-    from: from(i),
-  })); // Create a bunch of springs using the helpers above
+  const [props, api] = useSprings(len, (i) => {
+    return {
+      ...to(i),
+      from: from(i),
+    };
+  }); // Create a bunch of springs using the helpers above
   // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
+
+  useEffect(() => {
+    api.start((index) => ({ ...to(index) }));
+  }, [to]);
 
   const bind = useDrag(
     ({ args: [index], down, movement: [mx], direction: [xDir], velocity }) => {

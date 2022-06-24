@@ -17,8 +17,8 @@ export default function App() {
     xV: 1,
     yV: 1,
     sC: 1,
-    rot: 200,
-    delay: 100,
+    rot: 10,
+    delay: 150,
   });
 
   const [reset, setReset] = useState(true);
