@@ -20,8 +20,8 @@ export const to = ({
   rot: number;
   delay: number;
 }) => ({
-  x: (Math.random() - 0.5) * xV,
-  y: (Math.random() - 0.5) * yV,
+  x: (Math.random() - 0.5) * xV * i,
+  y: (Math.random() - 0.5) * yV * i,
   scale: sC,
   rot: -10 + Math.random() * rot,
   delay: i * delay,
